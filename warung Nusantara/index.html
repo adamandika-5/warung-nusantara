@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Warung Nusantara | Sistem Pemesanan Digital</title>
+
+  <style>
+    :root {
+      --primary: #0f0f0f;
+      --primary-dark: #050505;
+      --secondary: #c8a45d;
+      --secondary-soft: rgba(200, 164, 93, 0.14);
+      --accent: #f5f0e6;
+      --bg: #141414;
+      --card: #1c1c1c;
+      --card-soft: #232323;
+      --muted: #a7a7a7;
+      --border: rgba(255, 255, 255, 0.12);
+      --danger: #ef4444;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --blue: #3b82f6;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: min(1180px, 92%);
+      margin: auto;
+    }
+
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+      padding: 28px 0;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+    }
+
+    .brand {
+      text-decoration: none;
+      color: #ffffff;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      line-height: 1;
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .nav-menu a {
+      color: rgba(255, 255, 255, 0.78);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
+
+    .nav-menu a:hover { color: var(--secondary); }
+
+    .nav-cta {
+      padding: 11px 20px;
+      border: 1px solid var(--secondary);
+      color: var(--accent) !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--secondary);
+      color: #111111 !important;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 720px;
+      padding: 130px 0 70px;
+      background:
+        linear-gradient(90deg, rgba(5, 5, 5, 0.96) 0%, rgba(5, 5, 5, 0.82) 42%, rgba(5, 5, 5, 0.34) 100%),
+        url("images/rawon-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 75% 45%, rgba(200, 164, 93, 0.16), transparent 28%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.56));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 34px;
+      min-height: 560px;
+    }
+
+    .hero-title {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(54px, 7vw, 92px);
+      line-height: 0.94;
+      font-weight: 700;
+      letter-spacing: -2px;
+      max-width: 680px;
+      margin-bottom: 28px;
+    }
+
+    .hero-desc {
+      max-width: 640px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 17px;
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+
+    .location-panel {
+      max-width: 430px;
+      margin-bottom: 24px;
+    }
+
+    .location-panel label {
+      display: block;
+      color: var(--secondary);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .location-panel select {
+      width: 100%;
+      padding: 13px 14px;
+      background: rgba(17, 17, 17, 0.92);
+      border: 1px solid rgba(200, 164, 93, 0.42);
+      color: #ffffff;
+      outline: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .location-panel select option {
+      font-size: 13px;
+      background: #111111;
+      color: #ffffff;
+    }
+
+    .location-panel select:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 4px rgba(200, 164, 93, 0.12);
+    }
+
+    .restaurant-info {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      max-width: 760px;
+      margin-bottom: 32px;
+    }
+
+    .restaurant-info div {
+      padding: 16px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      background: rgba(255, 255, 255, 0.055);
+      backdrop-filter: blur(12px);
+    }
+
+    .restaurant-info span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+    }
+
+    .restaurant-info strong {
+      color: var(--accent);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main,
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 26px;
+      font-weight: 800;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: 0.25s ease;
+    }
+
+    .btn-main {
+      background: var(--secondary);
+      color: #111111;
+      border: 1px solid var(--secondary);
+    }
+
+    .btn-main:hover {
+      background: #e2c275;
+      border-color: #e2c275;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--secondary);
+      color: var(--secondary);
+    }
+
+    .hero-featured {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100%;
+      padding-left: 28px;
+    }
+
+    .featured-wrap {
+      position: relative;
+      width: min(590px, 100%);
+      padding-top: 66px;
+    }
+
+    .featured-label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: var(--secondary);
+      font-size: 13px;
+      letter-spacing: 2.6px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .featured-item {
+      display: grid;
+      grid-template-columns: 245px 1fr;
+      align-items: center;
+      gap: 30px;
+      padding: 0;
+    }
+
+    .featured-image {
+      width: 245px;
+      height: 175px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 3px solid rgba(200, 164, 93, 0.82);
+      box-shadow: 0 24px 58px rgba(0, 0, 0, 0.52);
+      background: rgba(0, 0, 0, 0.28);
+      flex-shrink: 0;
+    }
+
+    .featured-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transform: scale(1.03);
+    }
+
+    .featured-text h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 46px;
+      line-height: 1.05;
+      margin-bottom: 12px;
+    }
+
+    .featured-text p {
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.7;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    .featured-text strong {
+      color: var(--secondary);
+      font-size: 18px;
+    }
+
+    section { padding: 72px 0; }
+
+    .section-heading {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 42px;
+    }
+
+    .section-heading span {
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .section-heading h2 {
+      margin-top: 12px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 4vw, 54px);
+      line-height: 1.1;
+    }
+
+    .section-heading p {
+      margin-top: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .menu-section { background: #101010; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .menu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow);
+      border-color: rgba(200, 164, 93, 0.38);
+    }
+
+    .menu-image {
+      height: 240px;
+      background: linear-gradient(135deg, #202020, #111111);
+      display: grid;
+      place-items: center;
+      font-size: 48px;
+      color: var(--secondary);
+      overflow: hidden;
+    }
+
+    .menu-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .menu-body { padding: 22px; }
+
+    .menu-category {
+      display: inline-block;
+      color: var(--secondary);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .menu-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .menu-name {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      line-height: 1.1;
+    }
+
+    .price {
+      color: var(--secondary);
+      font-weight: 900;
+      white-space: nowrap;
+      padding-top: 5px;
+    }
+
+    .menu-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .availability {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .available { color: var(--success); }
+    .not-available { color: var(--danger); }
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-weight: 800;
+      transition: 0.2s ease;
+    }
+
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-add {
+      padding: 11px 17px;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid rgba(200, 164, 93, 0.5);
+    }
+
+    .btn-add:hover {
+      background: var(--secondary);
+      color: #111111;
+    }
+
+    .order-section {
+      background:
+        radial-gradient(circle at top left, rgba(200, 164, 93, 0.08), transparent 28%),
+        #141414;
+    }
+
+    .order-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .panel {
+      background: rgba(28, 28, 28, 0.88);
+      border: 1px solid var(--border);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      width: 100%;
+    }
+
+    .order-form-panel {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .orders-panel {
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+
+    .panel-title { margin-bottom: 22px; }
+
+    .panel-title h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .panel-title p {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .form-group { margin-bottom: 17px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 15px;
+      background: #111111;
+      border: 1px solid var(--border);
+      color: #ffffff;
+      outline: none;
+      font-size: 14px;
+    }
+
+    input:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 4px rgba(200, 164, 93, 0.12);
+    }
+
+    .cart-list {
+      display: grid;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      border: 1px solid var(--border);
+      background: #111111;
+      padding: 14px;
+    }
+
+    .cart-item strong {
+      font-size: 15px;
+      color: #ffffff;
+    }
+
+    .cart-item span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-control button {
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid rgba(200, 164, 93, 0.5);
+      color: var(--secondary);
+    }
+
+    .qty-control .remove {
+      color: var(--danger);
+      border-color: rgba(239, 68, 68, 0.45);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0a0a0a;
+      border: 1px solid rgba(200, 164, 93, 0.3);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .cart-total span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cart-total strong {
+      color: var(--secondary);
+      font-size: 25px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--secondary);
+      color: #111111;
+      font-size: 15px;
+    }
+
+    .btn-submit:hover { background: #e2c275; }
+
+    .empty {
+      border: 1px dashed var(--border);
+      color: var(--muted);
+      text-align: center;
+      padding: 18px;
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.025);
+      font-size: 14px;
+    }
+
+    .orders-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .order-count {
+      color: var(--secondary);
+      border: 1px solid rgba(200, 164, 93, 0.35);
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      background: rgba(200, 164, 93, 0.08);
+    }
+
+    .kitchen-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      max-height: 720px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .kitchen-grid::-webkit-scrollbar { width: 8px; }
+    .kitchen-grid::-webkit-scrollbar-thumb { background: rgba(200, 164, 93, 0.45); }
+
+    .order-card {
+      background: #111111;
+      border: 1px solid var(--border);
+      padding: 18px;
+    }
+
+    .order-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .order-head strong {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 24px;
+    }
+
+    .status {
+      padding: 7px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+    }
+
+    .status-pending { background: rgba(245, 158, 11, 0.16); color: var(--warning); }
+    .status-cooking { background: rgba(59, 130, 246, 0.15); color: var(--blue); }
+    .status-ready { background: rgba(34, 197, 94, 0.14); color: var(--success); }
+    .status-done { background: rgba(255, 255, 255, 0.1); color: var(--muted); }
+
+    .order-meta {
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+
+    .order-meta strong { color: #ffffff; }
+
+    .order-items {
+      margin-left: 18px;
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.8;
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+
+    .status-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn-status {
+      padding: 9px 12px;
+      background: transparent;
+      border: 1px solid rgba(200, 164, 93, 0.42);
+      color: var(--secondary);
+      font-size: 12px;
+    }
+
+    .btn-status:hover {
+      background: var(--secondary);
+      color: #111111;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      max-width: 330px;
+      background: #070707;
+      border: 1px solid rgba(200, 164, 93, 0.35);
+      color: #ffffff;
+      padding: 15px 17px;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: 0.3s ease;
+      z-index: 100;
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    footer {
+      padding: 26px 0;
+      text-align: center;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: #0f0f0f;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1000px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-featured { justify-content: flex-start; padding-left: 0; }
+      .featured-wrap { padding-top: 45px; }
+      .featured-label { left: 0; }
+      .featured-item { grid-template-columns: 220px 1fr; gap: 24px; }
+      .featured-image { width: 220px; height: 160px; }
+      .menu-grid,
+      .kitchen-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .site-header { position: relative; background: #0b0b0b; }
+      .navbar { align-items: flex-start; flex-direction: column; }
+      .nav-menu { flex-wrap: wrap; gap: 16px; }
+      .hero { padding: 54px 0; min-height: auto; }
+      .restaurant-info,
+      .menu-grid,
+      .kitchen-grid { grid-template-columns: 1fr; }
+      .featured-item { grid-template-columns: 1fr; gap: 18px; }
+      .featured-image { width: min(320px, 100%); height: 205px; border-radius: 38px; }
+      .hero-title { font-size: 52px; }
+      .brand-text strong { font-size: 28px; }
+      section { padding: 54px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="#" class="brand">
+        <div class="brand-text">
+          <strong>Warung Nusantara</strong>
+        </div>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="#">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#pesanan">Pesanan</a>
+        <a href="#dataPesanan">Data Pesanan</a>
+        <a href="#pesanan" class="nav-cta">Pesan Sekarang</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-content">
+          <h1 class="hero-title" id="heroTitle">Warung<br>Nusantara<br>Jombang</h1>
+
+          <p class="hero-desc">
+            Sistem pemesanan digital untuk membantu pelanggan melihat menu,
+            membuat pesanan, dan menyimpan data pesanan langsung ke Firestore secara real-time.
+          </p>
+
+          <div class="location-panel">
+            <label for="restaurantSelect">Pilih Lokasi Restoran</label>
+            <select id="restaurantSelect">
+              <option value="warung_nusantara_jombang">Warung Nusantara Jombang</option>
+              <option value="warung_nusantara_malang">Warung Nusantara Malang</option>
+            </select>
+          </div>
+
+          <div class="restaurant-info">
+            <div>
+              <span>Alamat</span>
+              <strong id="restaurantAddress">Jl. Ahmad Yani No. 5</strong>
+            </div>
+
+            <div>
+              <span>Jam Buka</span>
+              <strong id="restaurantHours">08:00 - 21:00</strong>
+            </div>
+
+            <div>
+              <span>Status</span>
+              <strong>Buka Hari Ini</strong>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#menu" class="btn-main">Lihat Menu</a>
+            <a href="#pesanan" class="btn-outline">Buat Pesanan</a>
+          </div>
+        </div>
+
+        <div class="hero-featured">
+          <div class="featured-wrap">
+            <span class="featured-label">Menu Favorit</span>
+
+            <div class="featured-item">
+              <div class="featured-image">
+                <img id="featuredImage" src="images/rawon-favorit.jpg" alt="Menu Favorit">
+              </div>
+
+              <div class="featured-text">
+                <h3 id="featuredName">Nasi Rawon</h3>
+                <p id="featuredDesc">
+                  Kuah hitam khas kluwek dengan daging sapi empuk,
+                  disajikan dengan cita rasa Nusantara.
+                </p>
+                <strong id="featuredPrice">Mulai dari Rp8.000</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="menu-section" id="menu">
+    <div class="container">
+      <div class="section-heading">
+        <span>Live Menu</span>
+        <h2>Daftar Menu</h2>
+      </div>
+
+      <div id="menuGrid" class="menu-grid">
+        <div class="empty">Memuat menu dari Firestore...</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-section" id="pesanan">
+    <div class="container">
+      <div class="section-heading">
+        <span>Order System</span>
+        <h2>Pemesanan Pelanggan</h2>
+        <p>
+          Pelanggan mengisi data diri, memilih menu, dan pesanan akan langsung tersimpan ke Firestore.
+        </p>
+      </div>
+
+      <div class="order-layout">
+        <div class="panel order-form-panel">
+          <div class="panel-title">
+            <h3>Form Pesanan</h3>
+            <p>Isi nama pelanggan, nomor HP, dan nomor meja.</p>
+          </div>
+
+          <div class="form-group">
+            <label for="customerName">Nama Pelanggan</label>
+            <input id="customerName" type="text" placeholder="Contoh: Adam Andika Sukma">
+          </div>
+
+          <div class="form-group">
+            <label for="customerPhone">Nomor HP</label>
+            <input id="customerPhone" type="text" placeholder="Contoh: 085749503756">
+          </div>
+
+          <div class="form-group">
+            <label for="tableNumber">Nomor Meja</label>
+            <input id="tableNumber" type="number" min="1" placeholder="Contoh: 4">
+          </div>
+
+          <div class="cart-list" id="cartList">
+            <div class="empty">Keranjang masih kosong.</div>
+          </div>
+
+          <div class="cart-total">
+            <div>
+              <span>Total Pesanan</span>
+              <strong id="cartTotal">Rp0</strong>
+            </div>
+            <div>🧾</div>
+          </div>
+
+          <button class="btn-submit" id="submitOrder">
+            Kirim Pesanan
+          </button>
+        </div>
+
+        <div class="panel orders-panel" id="dataPesanan">
+          <div class="orders-toolbar">
+            <div class="panel-title" style="margin-bottom: 0;">
+              <h3>Data Pesanan</h3>
+              <p>Data pesanan pelanggan yang masuk ke Firestore ditampilkan sesuai lokasi restoran.</p>
+            </div>
+            <div class="order-count" id="orderCount">0 data pesanan</div>
+          </div>
+
+          <div id="kitchenOrders" class="kitchen-grid">
+            <div class="empty">Belum ada pesanan masuk.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Warung Nusantara © 2026 — Prototype Sistem Pemesanan Restoran Berbasis Firestore
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+    import {
+      getFirestore,
+      collection,
+      doc,
+      setDoc,
+      addDoc,
+      getDocs,
+      updateDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAI5R_97g65WBcDFKAUm6M5pfTNnIQmKbA",
+      authDomain: "warung-nusantara-5127b.firebaseapp.com",
+      projectId: "warung-nusantara-5127b",
+      storageBucket: "warung-nusantara-5127b.firebasestorage.app",
+      messagingSenderId: "322760861964",
+      appId: "1:322760861964:web:709c7b6123f8b4383bc129"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const RESTAURANTS = {
+      warung_nusantara_jombang: {
+        id: "warung_nusantara_jombang",
+        name: "Warung Nusantara Jombang",
+        shortName: "Jombang",
+        address: "Jl. Ahmad Yani No. 5",
+        openHours: "08:00 - 21:00",
+        favoriteName: "Nasi Rawon",
+        favoriteDesc: "Kuah hitam khas kluwek dengan daging sapi empuk, disajikan dengan cita rasa Nusantara.",
+        favoritePrice: "Mulai dari Rp8.000",
+        favoriteImage: "images/rawon-favorit.jpg"
+      },
+      warung_nusantara_malang: {
+        id: "warung_nusantara_malang",
+        name: "Warung Nusantara Malang",
+        shortName: "Malang",
+        address: "Jl. Ijen No. 12",
+        openHours: "09:00 - 22:00",
+        favoriteName: "Bakso Malang",
+        favoriteDesc: "Hidangan khas Malang dengan kuah gurih, bakso, dan pelengkap yang mengenyangkan.",
+        favoritePrice: "Mulai dari Rp10.000",
+        favoriteImage: "images/ok.jpg"
+      }
+    };
+
+    let currentRestaurantId = "warung_nusantara_jombang";
+    let menus = [];
+    let cart = [];
+    let unsubscribeMenus = null;
+    let unsubscribeOrders = null;
+
+    const restaurantSelect = document.getElementById("restaurantSelect");
+    const heroTitle = document.getElementById("heroTitle");
+    const restaurantAddress = document.getElementById("restaurantAddress");
+    const restaurantHours = document.getElementById("restaurantHours");
+    const featuredImage = document.getElementById("featuredImage");
+    const featuredName = document.getElementById("featuredName");
+    const featuredDesc = document.getElementById("featuredDesc");
+    const featuredPrice = document.getElementById("featuredPrice");
+    const menuGrid = document.getElementById("menuGrid");
+    const cartList = document.getElementById("cartList");
+    const cartTotal = document.getElementById("cartTotal");
+    const customerName = document.getElementById("customerName");
+    const customerPhone = document.getElementById("customerPhone");
+    const tableNumber = document.getElementById("tableNumber");
+    const submitOrder = document.getElementById("submitOrder");
+    const kitchenOrders = document.getElementById("kitchenOrders");
+    const orderCount = document.getElementById("orderCount");
+    const toast = document.getElementById("toast");
+
+    function getCurrentRestaurant() {
+      return RESTAURANTS[currentRestaurantId];
+    }
+
+    function formatRupiah(number) {
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0
+      }).format(number || 0);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    function makeCustomerId(name, phone) {
+      const cleanName = (name || "customer")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
+
+      const cleanPhone = (phone || "")
+        .replace(/[^0-9]/g, "")
+        .slice(-6);
+
+      return `cust_${cleanName}_${cleanPhone || Date.now()}`;
+    }
+
+    function menuIcon(category) {
+      const lower = (category || "").toLowerCase();
+      if (lower.includes("minuman")) return "🥤";
+      if (lower.includes("utama")) return "🍛";
+      if (lower.includes("cemilan")) return "🍢";
+      if (lower.includes("penutup")) return "🍮";
+      return "🍽️";
+    }
+
+    function updateRestaurantDisplay() {
+      const restaurant = getCurrentRestaurant();
+      heroTitle.innerHTML = `Warung<br>Nusantara<br>${restaurant.shortName}`;
+      restaurantAddress.textContent = restaurant.address;
+      restaurantHours.textContent = restaurant.openHours;
+      featuredName.textContent = restaurant.favoriteName;
+      featuredDesc.textContent = restaurant.favoriteDesc;
+      featuredPrice.textContent = restaurant.favoritePrice;
+      featuredImage.src = restaurant.favoriteImage;
+      featuredImage.alt = restaurant.favoriteName;
+      document.title = `${restaurant.name} | Sistem Pemesanan Digital`;
+    }
+
+    async function ensureRestaurantProfiles() {
+      const promises = Object.values(RESTAURANTS).map((restaurant) => {
+        const restaurantRef = doc(db, "restaurants", restaurant.id);
+        return setDoc(
+          restaurantRef,
+          {
+            name: restaurant.name,
+            address: restaurant.address,
+            openHours: restaurant.openHours
+          },
+          { merge: true }
+        );
+      });
+
+      await Promise.all(promises);
+    }
+
+    function renderMenus() {
+      if (menus.length === 0) {
+        menuGrid.innerHTML = `
+          <div class="empty">
+            Belum ada data menu untuk lokasi ini.
+          </div>
+        `;
+        return;
+      }
+
+      menuGrid.innerHTML = menus
+        .sort((a, b) => (a.category || "").localeCompare(b.category || ""))
+        .map((menu) => {
+          const disabled = !menu.available ? "disabled" : "";
+          return `
+            <article class="menu-card">
+              <div class="menu-image">
+                ${menu.imageUrl ? `<img src="${menu.imageUrl}" alt="${menu.name}">` : menuIcon(menu.category)}
+              </div>
+
+              <div class="menu-body">
+                <span class="menu-category">${menu.category || "Menu"}</span>
+
+                <div class="menu-top">
+                  <div class="menu-name">${menu.name}</div>
+                  <div class="price">${formatRupiah(menu.price)}</div>
+                </div>
+
+                <div class="menu-status">
+                  <span class="availability ${menu.available ? "available" : "not-available"}">
+                    ${menu.available ? "Tersedia" : "Habis"}
+                  </span>
+
+                  <button class="btn-add" ${disabled} onclick="addToCart('${menu.id}')">
+                    + Pesan
+                  </button>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    window.addToCart = function(menuId) {
+      const selectedMenu = menus.find((menu) => menu.id === menuId);
+      if (!selectedMenu || !selectedMenu.available) {
+        showToast("Menu tidak tersedia.");
+        return;
+      }
+
+      const existingItem = cart.find((item) => item.menuId === menuId);
+      if (existingItem) {
+        existingItem.qty += 1;
+        existingItem.subtotal = existingItem.qty * existingItem.unitPrice;
+      } else {
+        cart.push({
+          menuId: selectedMenu.id,
+          menuName: selectedMenu.name,
+          qty: 1,
+          unitPrice: Number(selectedMenu.price),
+          subtotal: Number(selectedMenu.price)
+        });
+      }
+
+      renderCart();
+      showToast(`${selectedMenu.name} ditambahkan ke keranjang.`);
+    };
+
+    window.increaseQty = function(menuId) {
+      const item = cart.find((cartItem) => cartItem.menuId === menuId);
+      if (!item) return;
+      item.qty += 1;
+      item.subtotal = item.qty * item.unitPrice;
+      renderCart();
+    };
+
+    window.decreaseQty = function(menuId) {
+      const item = cart.find((cartItem) => cartItem.menuId === menuId);
+      if (!item) return;
+      item.qty -= 1;
+      if (item.qty <= 0) {
+        cart = cart.filter((cartItem) => cartItem.menuId !== menuId);
+      } else {
+        item.subtotal = item.qty * item.unitPrice;
+      }
+      renderCart();
+    };
+
+    window.removeCartItem = function(menuId) {
+      cart = cart.filter((cartItem) => cartItem.menuId !== menuId);
+      renderCart();
+    };
+
+    function renderCart() {
+      const total = cart.reduce((sum, item) => sum + item.subtotal, 0);
+      cartTotal.textContent = formatRupiah(total);
+
+      if (cart.length === 0) {
+        cartList.innerHTML = `<div class="empty">Keranjang masih kosong.</div>`;
+        return;
+      }
+
+      cartList.innerHTML = cart
+        .map((item) => {
+          return `
+            <div class="cart-item">
+              <div>
+                <strong>${item.menuName}</strong><br>
+                <span>${formatRupiah(item.unitPrice)} x ${item.qty}</span>
+              </div>
+
+              <div class="qty-control">
+                <button onclick="decreaseQty('${item.menuId}')">-</button>
+                <strong>${item.qty}</strong>
+                <button onclick="increaseQty('${item.menuId}')">+</button>
+                <button class="remove" onclick="removeCartItem('${item.menuId}')">×</button>
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+    }
+
+    function listenMenusRealtime() {
+      if (unsubscribeMenus) unsubscribeMenus();
+
+      const menuRef = collection(db, "restaurants", currentRestaurantId, "menus");
+      unsubscribeMenus = onSnapshot(menuRef, (snapshot) => {
+        menus = snapshot.docs.map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data()
+        }));
+        renderMenus();
+      });
+    }
+
+    submitOrder.addEventListener("click", async () => {
+      const restaurant = getCurrentRestaurant();
+      const name = customerName.value.trim();
+      const phone = customerPhone.value.trim();
+      const table = Number(tableNumber.value);
+      const totalPrice = cart.reduce((sum, item) => sum + item.subtotal, 0);
+
+      if (!name || !phone || !table) {
+        showToast("Lengkapi nama pelanggan, nomor HP, dan nomor meja.");
+        return;
+      }
+
+      if (cart.length === 0) {
+        showToast("Pilih minimal satu menu terlebih dahulu.");
+        return;
+      }
+
+      try {
+        submitOrder.disabled = true;
+        submitOrder.textContent = "Mengirim pesanan...";
+
+        const customerId = makeCustomerId(name, phone);
+        const customerRef = doc(db, "customers", customerId);
+        const restaurantRef = doc(db, "restaurants", restaurant.id);
+
+        await setDoc(
+          customerRef,
+          {
+            name: name,
+            phone: phone,
+            loyaltyPoints: 0
+          },
+          { merge: true }
+        );
+
+        const orderRef = await addDoc(collection(db, "orders"), {
+          customerId: customerRef,
+          restaurantId: restaurantRef,
+          tableNumber: table,
+          status: "pending",
+          totalPrice: totalPrice,
+          createdAt: serverTimestamp(),
+          customerName: name,
+          customerPhone: phone,
+          restaurantName: restaurant.name
+        });
+
+        const itemPromises = cart.map((item) => {
+          return addDoc(collection(db, "orders", orderRef.id, "orderItems"), {
+            menuId: item.menuId,
+            menuName: item.menuName,
+            qty: item.qty,
+            unitPrice: item.unitPrice,
+            subtotal: item.subtotal
+          });
+        });
+
+        await Promise.all(itemPromises);
+
+        cart = [];
+        renderCart();
+        customerName.value = "";
+        customerPhone.value = "";
+        tableNumber.value = "";
+        showToast(`Pesanan berhasil disimpan untuk ${restaurant.name}.`);
+      } catch (error) {
+        console.error(error);
+        showToast("Gagal mengirim pesanan. Periksa Firebase Config dan Firestore Rules.");
+      } finally {
+        submitOrder.disabled = false;
+        submitOrder.textContent = "Kirim Pesanan";
+      }
+    });
+
+    async function renderKitchenOrders(snapshot) {
+      const restaurantPath = `restaurants/${currentRestaurantId}`;
+      const orders = snapshot.docs
+        .map((docSnap) => ({
+          id: docSnap.id,
+          ...docSnap.data()
+        }))
+        .filter((order) => order.restaurantId?.path === restaurantPath);
+
+      orderCount.textContent = `${orders.length} data pesanan`;
+
+      if (orders.length === 0) {
+        kitchenOrders.innerHTML = `<div class="empty">Belum ada pesanan masuk untuk lokasi ini.</div>`;
+        return;
+      }
+
+      const orderCards = await Promise.all(
+        orders.map(async (order) => {
+          const itemSnapshot = await getDocs(collection(db, "orders", order.id, "orderItems"));
+          const items = itemSnapshot.docs.map((itemDoc) => itemDoc.data());
+
+          const itemList = items
+            .map((item) => `<li>${item.menuName} x ${item.qty} — ${formatRupiah(item.subtotal)}</li>`)
+            .join("");
+
+          return `
+            <article class="order-card">
+              <div class="order-head">
+                <strong>Meja ${order.tableNumber}</strong>
+                <span class="status status-${order.status}">${order.status}</span>
+              </div>
+
+              <div class="order-meta">
+                Lokasi: <strong>${order.restaurantName || "-"}</strong><br>
+                Pelanggan: <strong>${order.customerName || "-"}</strong><br>
+                Total: <strong>${formatRupiah(order.totalPrice)}</strong>
+              </div>
+
+              <ul class="order-items">
+                ${itemList}
+              </ul>
+
+              <div class="status-actions">
+                <button class="btn-status" onclick="updateOrderStatus('${order.id}', 'pending')">Pending</button>
+                <button class="btn-status" onclick="updateOrderStatus('${order.id}', 'cooking')">Proses Masak</button>
+                <button class="btn-status" onclick="updateOrderStatus('${order.id}', 'ready')">Siap Disajikan</button>
+                <button class="btn-status" onclick="updateOrderStatus('${order.id}', 'done')">Selesai</button>
+              </div>
+            </article>
+          `;
+        })
+      );
+
+      kitchenOrders.innerHTML = orderCards.join("");
+    }
+
+    function listenOrdersRealtime() {
+      if (unsubscribeOrders) unsubscribeOrders();
+
+      const orderQuery = query(collection(db, "orders"), orderBy("createdAt", "desc"));
+      unsubscribeOrders = onSnapshot(orderQuery, (snapshot) => {
+        renderKitchenOrders(snapshot);
+      });
+    }
+
+    window.updateOrderStatus = async function(orderId, status) {
+      try {
+        await updateDoc(doc(db, "orders", orderId), { status: status });
+        showToast(`Status pesanan diubah menjadi ${status}.`);
+      } catch (error) {
+        console.error(error);
+        showToast("Gagal mengubah status pesanan.");
+      }
+    };
+
+    restaurantSelect.addEventListener("change", () => {
+      currentRestaurantId = restaurantSelect.value;
+      cart = [];
+      renderCart();
+      updateRestaurantDisplay();
+      listenMenusRealtime();
+      listenOrdersRealtime();
+      showToast(`Lokasi restoran diganti ke ${getCurrentRestaurant().name}.`);
+    });
+
+    await ensureRestaurantProfiles();
+    updateRestaurantDisplay();
+    renderCart();
+    listenMenusRealtime();
+    listenOrdersRealtime();
+  </script>
+</body>
+</html>
