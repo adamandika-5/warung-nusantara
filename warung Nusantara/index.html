@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Warung Nusantara — sistem pemesanan digital untuk melihat menu, membuat pesanan, dan memantau status secara real-time." />
+  <meta name="description" content="Warung Nusantara Jombang — sistem pemesanan digital untuk melihat menu, membuat pesanan, dan memantau status pesanan." />
 
-  <title>Warung Nusantara | Sistem Pemesanan Digital</title>
+  <title>Warung Nusantara Jombang | Sistem Pemesanan Digital</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
   <style>
-    /* === Design Tokens === */
     :root {
       --gold:        #c8a45d;
       --gold-light:  #e2c275;
@@ -39,7 +38,6 @@
       --transition:  0.22s ease;
     }
 
-    /* === Reset === */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
@@ -71,9 +69,8 @@
       cursor: not-allowed;
     }
 
-    input, select { font-family: inherit; }
+    input { font-family: inherit; }
 
-    /* === Layout === */
     .container {
       width: min(1200px, 92%);
       margin: 0 auto;
@@ -81,7 +78,6 @@
 
     section { padding: 80px 0; }
 
-    /* === Header / Nav === */
     .site-header {
       position: fixed;
       top: 0; left: 0;
@@ -108,16 +104,6 @@
       align-items: center;
       gap: 10px;
       flex-shrink: 0;
-    }
-
-    .brand-icon {
-      width: 36px;
-      height: 36px;
-      background: var(--gold);
-      border-radius: var(--radius-sm);
-      display: grid;
-      place-items: center;
-      font-size: 18px;
     }
 
     .brand-name {
@@ -157,7 +143,6 @@
       background: var(--gold-light) !important;
     }
 
-    /* === Hero === */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -231,50 +216,20 @@
       margin-bottom: 30px;
     }
 
-    /* === Location selector === */
-    .location-panel {
-      max-width: 420px;
+    .location-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border-gold);
+      padding: 9px 15px;
+      border-radius: var(--radius-md);
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: 800;
       margin-bottom: 28px;
     }
 
-    .location-panel label {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .location-panel select {
-      width: 100%;
-      padding: 13px 38px 13px 16px;
-      background: rgba(26, 26, 26, 0.95);
-      border: 1px solid var(--border-gold);
-      border-radius: var(--radius-md);
-      color: var(--text);
-      outline: none;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c8a45d' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      transition: var(--transition);
-    }
-
-    .location-panel select option { background: #1a1a1a; color: var(--text); }
-
-    .location-panel select:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px var(--gold-ring);
-    }
-
-    /* === Restaurant info cards === */
     .restaurant-info {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -314,7 +269,6 @@
       line-height: 1.4;
     }
 
-    /* === Hero action buttons === */
     .hero-actions {
       display: flex;
       align-items: center;
@@ -322,20 +276,25 @@
       flex-wrap: wrap;
     }
 
-    .btn-primary {
+    .btn-primary,
+    .btn-ghost {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       padding: 14px 28px;
-      background: var(--gold);
-      color: #111;
       font-size: 14px;
-      font-weight: 800;
       text-decoration: none;
       border-radius: var(--radius-md);
-      border: none;
       cursor: pointer;
       transition: var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #111;
+      font-weight: 800;
+      border: none;
     }
 
     .btn-primary:hover {
@@ -345,19 +304,10 @@
     }
 
     .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
       background: transparent;
       color: var(--cream);
-      font-size: 14px;
       font-weight: 700;
-      text-decoration: none;
-      border-radius: var(--radius-md);
       border: 1px solid rgba(255,255,255,0.22);
-      cursor: pointer;
-      transition: var(--transition);
     }
 
     .btn-ghost:hover {
@@ -366,7 +316,6 @@
       background: var(--gold-dim);
     }
 
-    /* === Featured item (hero right) === */
     .hero-featured {
       display: flex;
       justify-content: center;
@@ -405,9 +354,6 @@
       height: 260px;
       overflow: hidden;
       background: #111;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .featured-image-wrap img {
@@ -442,7 +388,6 @@
       font-weight: 800;
     }
 
-    /* === Section headings === */
     .section-heading {
       text-align: center;
       max-width: 680px;
@@ -474,7 +419,6 @@
       line-height: 1.85;
     }
 
-    /* === Menu section === */
     .menu-section { background: #0d0d0d; }
 
     .menu-grid {
@@ -512,7 +456,7 @@
     .menu-image img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
       object-position: center;
       display: block;
       background: #111;
@@ -620,7 +564,6 @@
       border-color: var(--gold);
     }
 
-    /* === Skeleton loading === */
     @keyframes shimmer {
       0%   { background-position: -400px 0; }
       100% { background-position:  400px 0; }
@@ -647,7 +590,6 @@
     .skel-line.med   { width: 78%; }
     .skel-line.full  { width: 100%; }
 
-    /* === Empty state === */
     .empty-state {
       text-align: center;
       padding: 48px 24px;
@@ -672,7 +614,6 @@
 
     .empty-state p { color: var(--muted); font-size: 14px; line-height: 1.7; }
 
-    /* === Order section === */
     .order-section {
       background:
         radial-gradient(ellipse at top left, rgba(200,164,93,0.07) 0%, transparent 40%),
@@ -713,7 +654,6 @@
 
     .panel-title p { color: var(--muted); font-size: 14px; line-height: 1.65; }
 
-    /* === Form elements === */
     .form-group { margin-bottom: 18px; }
 
     label {
@@ -747,7 +687,6 @@
 
     input::placeholder { color: rgba(255,255,255,0.3); }
 
-    /* === Cart === */
     .cart-list {
       display: flex;
       flex-direction: column;
@@ -851,7 +790,6 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* === Orders panel === */
     .orders-toolbar {
       display: flex;
       justify-content: space-between;
@@ -912,7 +850,6 @@
       font-weight: 700;
     }
 
-    /* === Status pill === */
     .status-pill {
       display: inline-flex;
       align-items: center;
@@ -987,7 +924,6 @@
     .btn-status.active-ready   { border-color: var(--success);  color: var(--success);  background: rgba(34,197,94,0.1); }
     .btn-status.active-done    { border-color: var(--muted);    color: var(--muted);    background: rgba(255,255,255,0.06); }
 
-    /* === Toast === */
     .toast {
       position: fixed;
       right: 22px;
@@ -1012,7 +948,6 @@
     .toast.toast-success { border-color: rgba(34,197,94,0.45); }
     .toast.toast-error   { border-color: rgba(239,68,68,0.45); }
 
-    /* === Footer === */
     footer {
       padding: 28px 0;
       text-align: center;
@@ -1024,7 +959,6 @@
 
     footer a { color: var(--gold); text-decoration: none; }
 
-    /* === Responsive === */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; gap: 50px; }
       .hero-featured { padding-left: 0; justify-content: flex-start; }
@@ -1056,11 +990,10 @@
 </head>
 
 <body>
-  <!-- Header -->
   <header class="site-header">
     <div class="container navbar">
-      <a href="#" class="brand" aria-label="Warung Nusantara — Beranda">
-        <span class="brand-name">Warung Nusantara</span>
+      <a href="#" class="brand" aria-label="Warung Nusantara Jombang — Beranda">
+        <span class="brand-name">Warung Nusantara Jombang</span>
       </a>
       <nav class="nav-menu" aria-label="Navigasi utama">
         <a href="#">Home</a>
@@ -1073,37 +1006,30 @@
   </header>
 
   <main>
-    <!-- Hero -->
     <section class="hero" aria-labelledby="heroTitle">
       <div class="container hero-inner">
         <div class="hero-content">
           <div class="hero-eyebrow">Sistem Pemesanan Digital</div>
 
           <h1 class="hero-title" id="heroTitle">
-            Warung<br>Nusantara<br><em id="heroLocation">Jombang</em>
+            Warung<br>Nusantara<br><em>Jombang</em>
           </h1>
 
           <p class="hero-desc">
             Sistem pemesanan digital untuk membantu pelanggan melihat menu,
-            membuat pesanan, dan menyimpan data pesanan langsung ke Firestore secara real-time.
+            membuat pesanan, dan menyimpan data pesanan secara otomatis.
           </p>
 
-          <div class="location-panel">
-            <label for="restaurantSelect">📍 Pilih Lokasi Restoran</label>
-            <select id="restaurantSelect" aria-label="Pilih lokasi restoran">
-              <option value="warung_nusantara_jombang">Warung Nusantara Jombang</option>
-              <option value="warung_nusantara_malang">Warung Nusantara Malang</option>
-            </select>
-          </div>
+          <div class="location-badge">📍 Jl. Ahmad Yani No. 5 — Jombang</div>
 
           <div class="restaurant-info" role="list" aria-label="Informasi restoran">
             <div class="restaurant-info-card" role="listitem">
               <span class="info-label">Alamat</span>
-              <span class="info-value" id="restaurantAddress">Jl. Ahmad Yani No. 5</span>
+              <span class="info-value">Jl. Ahmad Yani No. 5</span>
             </div>
             <div class="restaurant-info-card" role="listitem">
               <span class="info-label">Jam Buka</span>
-              <span class="info-value" id="restaurantHours">08:00 – 21:00</span>
+              <span class="info-value">08:00 – 21:00</span>
             </div>
             <div class="restaurant-info-card" role="listitem">
               <span class="info-label">Status</span>
@@ -1117,18 +1043,17 @@
           </div>
         </div>
 
-        <!-- Featured -->
         <div class="hero-featured">
           <div class="featured-wrap">
             <div class="featured-badge">⭐ Menu Favorit</div>
             <div class="featured-card">
               <div class="featured-image-wrap">
-                <img id="featuredImage" src="images/rawon-favorit.jpg" alt="Menu favorit" loading="lazy" />
+                <img id="featuredImage" src="images/rawon-favorit.jpg" alt="Nasi Rawon" loading="lazy" />
               </div>
               <div class="featured-info">
-                <h3 id="featuredName">Nasi Rawon</h3>
-                <p id="featuredDesc">Kuah hitam khas kluwek dengan daging sapi empuk, disajikan dengan cita rasa Nusantara.</p>
-                <span class="featured-price" id="featuredPrice">Mulai dari Rp8.000</span>
+                <h3>Nasi Rawon</h3>
+                <p>Kuah hitam khas kluwek dengan daging sapi empuk, disajikan dengan cita rasa Nusantara.</p>
+                <span class="featured-price">Mulai dari Rp8.000</span>
               </div>
             </div>
           </div>
@@ -1136,13 +1061,12 @@
       </div>
     </section>
 
-    <!-- Menu Section -->
     <section class="menu-section" id="menu" aria-labelledby="menuHeading">
       <div class="container">
         <div class="section-heading">
           <span class="section-eyebrow">Live Menu</span>
           <h2 id="menuHeading">Daftar Menu</h2>
-          <p>Pilih lokasi restoran untuk melihat daftar menu yang tersedia dan melakukan pemesanan dengan mudah.</p>
+          <p>Berikut daftar menu yang tersedia di Warung Nusantara Jombang. Klik "+ Pesan" untuk menambahkan menu ke keranjang.</p>
         </div>
         <div id="menuGrid" class="menu-grid" aria-live="polite">
           <div class="menu-skeleton"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line short"></div><div class="skeleton skel-line med" style="height:18px;margin-bottom:8px;"></div><div class="skeleton skel-line full"></div></div></div>
@@ -1152,18 +1076,15 @@
       </div>
     </section>
 
-    <!-- Order Section -->
     <section class="order-section" id="pesanan" aria-labelledby="orderHeading">
       <div class="container">
         <div class="section-heading">
           <span class="section-eyebrow">Sistem Order</span>
           <h2 id="orderHeading">Pemesanan Pelanggan</h2>
-          <p>Isi data pelanggan, pilih menu yang tersedia, lalu kirim pesanan. Sistem akan memproses dan menyimpan pesanan secara otomatis.
-</p>
+          <p>Isi data pelanggan, pilih menu yang tersedia, lalu kirim pesanan. Sistem akan memproses dan menyimpan pesanan secara otomatis.</p>
         </div>
 
         <div class="order-layout">
-          <!-- Form panel -->
           <div class="panel order-form-panel">
             <div class="panel-title">
               <h3>Form Pesanan</h3>
@@ -1199,12 +1120,11 @@
             <button class="btn-submit" id="submitOrder" type="button">Kirim Pesanan</button>
           </div>
 
-          <!-- Orders panel -->
           <div class="panel orders-panel" id="dataPesanan">
             <div class="orders-toolbar">
               <div class="panel-title" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
                 <h3>Data Pesanan</h3>
-                <p>Pesanan masuk sesuai lokasi restoran, diperbarui real-time.</p>
+                <p>Pesanan masuk di Warung Nusantara Jombang, diperbarui secara real-time.</p>
               </div>
               <div class="order-badge" id="orderCount" aria-live="polite">0 pesanan</div>
             </div>
@@ -1224,9 +1144,7 @@
 
   <footer>
     <div class="container">
-      Warung Nusantara &copy; 2026 &mdash;
-      Prototype Sistem Pemesanan Restoran Berbasis
-      <a href="https://firebase.google.com/" target="_blank" rel="noopener">Firestore</a>
+      Warung Nusantara Jombang &copy; 2026 &mdash; Prototype Sistem Pemesanan Restoran Berbasis Web
     </div>
   </footer>
 
@@ -1239,7 +1157,6 @@
       getDocs, updateDoc, onSnapshot, query, orderBy, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    /* ── Firebase Config (DO NOT MODIFY) ── */
     const firebaseConfig = {
       apiKey: "AIzaSyAI5R_97g65WBcDFKAUm6M5pfTNnIQmKbA",
       authDomain: "warung-nusantara-5127b.firebaseapp.com",
@@ -1250,53 +1167,38 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
+    const db = getFirestore(app);
 
-    /* ── Restaurant Data ── */
-    const RESTAURANTS = {
-      warung_nusantara_jombang: {
-        id: "warung_nusantara_jombang", name: "Warung Nusantara Jombang", shortName: "Jombang",
-        address: "Jl. Ahmad Yani No. 5", openHours: "08:00 – 21:00",
-        favoriteName: "Nasi Rawon", favoriteDesc: "Kuah hitam khas kluwek dengan daging sapi empuk, disajikan dengan cita rasa Nusantara.",
-        favoritePrice: "Mulai dari Rp8.000", favoriteImage: "images/rawon-favorit.jpg"
-      },
-      warung_nusantara_malang: {
-        id: "warung_nusantara_malang", name: "Warung Nusantara Malang", shortName: "Malang",
-        address: "Jl. Ijen No. 12", openHours: "09:00 – 22:00",
-        favoriteName: "Bakso Malang", favoriteDesc: "Hidangan khas Malang dengan kuah gurih, bakso, dan pelengkap yang mengenyangkan.",
-        favoritePrice: "Mulai dari Rp10.000", favoriteImage: "images/bakso.jpg"
-      }
+    const RESTAURANT = {
+      id: "warung_nusantara_jombang",
+      name: "Warung Nusantara Jombang",
+      address: "Jl. Ahmad Yani No. 5",
+      openHours: "08:00 – 21:00"
     };
 
-    /* ── State ── */
-    let currentRestaurantId = "warung_nusantara_jombang";
-    let menus = [], cart = [], unsubscribeMenus = null, unsubscribeOrders = null;
+    let menus = [];
+    let cart = [];
+    let unsubscribeMenus = null;
+    let unsubscribeOrders = null;
 
-    /* ── DOM Refs ── */
-    const restaurantSelect  = document.getElementById("restaurantSelect");
-    const heroLocation      = document.getElementById("heroLocation");
-    const restaurantAddress = document.getElementById("restaurantAddress");
-    const restaurantHours   = document.getElementById("restaurantHours");
-    const featuredImage     = document.getElementById("featuredImage");
-    const featuredName      = document.getElementById("featuredName");
-    const featuredDesc      = document.getElementById("featuredDesc");
-    const featuredPrice     = document.getElementById("featuredPrice");
-    const menuGrid          = document.getElementById("menuGrid");
-    const cartList          = document.getElementById("cartList");
-    const cartTotal         = document.getElementById("cartTotal");
-    const customerName      = document.getElementById("customerName");
-    const customerPhone     = document.getElementById("customerPhone");
-    const tableNumber       = document.getElementById("tableNumber");
-    const submitOrder       = document.getElementById("submitOrder");
-    const kitchenOrders     = document.getElementById("kitchenOrders");
-    const orderCount        = document.getElementById("orderCount");
-    const toast             = document.getElementById("toast");
-
-    /* ── Helpers ── */
-    function getCurrentRestaurant() { return RESTAURANTS[currentRestaurantId]; }
+    const featuredImage = document.getElementById("featuredImage");
+    const menuGrid = document.getElementById("menuGrid");
+    const cartList = document.getElementById("cartList");
+    const cartTotal = document.getElementById("cartTotal");
+    const customerName = document.getElementById("customerName");
+    const customerPhone = document.getElementById("customerPhone");
+    const tableNumber = document.getElementById("tableNumber");
+    const submitOrder = document.getElementById("submitOrder");
+    const kitchenOrders = document.getElementById("kitchenOrders");
+    const orderCount = document.getElementById("orderCount");
+    const toast = document.getElementById("toast");
 
     function formatRupiah(n) {
-      return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(n || 0);
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0
+      }).format(Number(n) || 0);
     }
 
     let toastTimer;
@@ -1313,46 +1215,43 @@
       return `cust_${n}_${p || Date.now()}`;
     }
 
+    function safeText(value) {
+      return String(value || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
     function menuIcon(cat) {
       const c = (cat || "").toLowerCase();
       if (c.includes("minuman")) return "🥤";
-      if (c.includes("utama"))   return "🍛";
+      if (c.includes("utama")) return "🍛";
       if (c.includes("cemilan")) return "🍢";
       if (c.includes("penutup")) return "🍮";
       return "🍽️";
     }
 
-    /* ── Restaurant display update ── */
-    function updateRestaurantDisplay() {
-      const r = getCurrentRestaurant();
-      heroLocation.textContent      = r.shortName;
-      restaurantAddress.textContent = r.address;
-      restaurantHours.textContent   = r.openHours;
-      featuredName.textContent      = r.favoriteName;
-      featuredDesc.textContent      = r.favoriteDesc;
-      featuredPrice.textContent     = r.favoritePrice;
-      featuredImage.src = r.favoriteImage;
-      featuredImage.alt = r.favoriteName;
-      featuredImage.onerror = () => { featuredImage.style.display = "none"; };
-      document.title = `${r.name} | Sistem Pemesanan Digital`;
+    function normalizeImageSrc(src) {
+      const value = String(src || "").trim();
+      if (!value) return "";
+      if (/^(https?:\/\/|data:|images\/)/i.test(value)) return value;
+      return `images/${value}`;
     }
 
-    /* ── Ensure restaurant docs in Firestore ── */
-    async function ensureRestaurantProfiles() {
-      await Promise.all(Object.values(RESTAURANTS).map(r =>
-        setDoc(doc(db, "restaurants", r.id), { name: r.name, address: r.address, openHours: r.openHours }, { merge: true })
-      ));
+    function buildFallbackHtml(category) {
+      return `
+        <div class="menu-image-fallback">
+          <span class="fallback-icon">${menuIcon(category)}</span>
+          <span class="fallback-text">${safeText(category || "Menu")}</span>
+        </div>`;
     }
 
-    /* ── Build menu image element (DOM-safe, no inline onerror) ── */
     function buildMenuImageEl(menu) {
       const wrap = document.createElement("div");
       wrap.className = "menu-image";
 
-      if (menu.imageUrl) {
+      const src = normalizeImageSrc(menu.imageUrl);
+      if (src) {
         const img = document.createElement("img");
-        img.src     = menu.imageUrl;
-        img.alt     = menu.name || "";
+        img.src = src;
+        img.alt = menu.name || "";
         img.loading = "lazy";
         img.addEventListener("error", () => {
           wrap.innerHTML = buildFallbackHtml(menu.category);
@@ -1365,38 +1264,42 @@
       return wrap;
     }
 
-    function buildFallbackHtml(category) {
-      return `<div class="menu-image-fallback"><span class="fallback-icon">${menuIcon(category)}</span><span class="fallback-text">${(category || "Menu").replace(/</g, "&lt;")}</span></div>`;
+    async function ensureRestaurantProfile() {
+      await setDoc(
+        doc(db, "restaurants", RESTAURANT.id),
+        {
+          name: RESTAURANT.name,
+          address: RESTAURANT.address,
+          openHours: RESTAURANT.openHours
+        },
+        { merge: true }
+      );
     }
 
-    /* ── Render menus ── */
     function renderMenus() {
       if (menus.length === 0) {
         menuGrid.innerHTML = `
           <div class="empty-state" style="grid-column:1/-1;">
             <div class="empty-icon">🍽️</div>
             <strong>Belum Ada Menu</strong>
-            <p>Menu untuk lokasi ini belum tersedia.<br>Tambahkan menu melalui Firebase Console.</p>
+            <p>Menu Warung Nusantara Jombang belum tersedia.<br>Pastikan data berada di <b>restaurants/warung_nusantara_jombang/menus</b>.</p>
           </div>`;
         return;
       }
 
-      // Clear grid
       menuGrid.innerHTML = "";
 
-      menus.slice()
+      menus
+        .slice()
         .sort((a, b) => (a.category || "").localeCompare(b.category || ""))
-        .forEach(menu => {
-          const ok = !!menu.available;
-          const safeText = (s) => String(s || "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        .forEach((menu) => {
+          const available = menu.available !== false;
 
           const article = document.createElement("article");
           article.className = "menu-card";
 
-          // Image (safe DOM method — no inline onerror)
           article.appendChild(buildMenuImageEl(menu));
 
-          // Body HTML (no image involved, safe to template)
           const body = document.createElement("div");
           body.className = "menu-body";
           body.innerHTML = `
@@ -1406,13 +1309,12 @@
               <div class="price">${formatRupiah(menu.price)}</div>
             </div>
             <div class="menu-status">
-              <span class="availability ${ok ? "available" : "not-available"}">${ok ? "Tersedia" : "Habis"}</span>
-              <button class="btn-add" ${ok ? "" : "disabled"} aria-label="Tambah ${safeText(menu.name)} ke keranjang">+ Pesan</button>
+              <span class="availability ${available ? "available" : "not-available"}">${available ? "Tersedia" : "Habis"}</span>
+              <button class="btn-add" ${available ? "" : "disabled"} aria-label="Tambah ${safeText(menu.name)} ke keranjang">+ Pesan</button>
             </div>`;
 
-          // Attach click via addEventListener (safe, no inline onclick)
           const addBtn = body.querySelector(".btn-add");
-          if (ok && addBtn) {
+          if (available && addBtn) {
             addBtn.addEventListener("click", () => addToCart(menu.id));
           }
 
@@ -1421,46 +1323,79 @@
         });
     }
 
-    /* ── Cart operations ── */
     window.addToCart = function(menuId) {
-      const sel = menus.find(m => m.id === menuId);
-      if (!sel || !sel.available) { showToast("Menu tidak tersedia.", "error"); return; }
-      const ex = cart.find(i => i.menuId === menuId);
-      if (ex) { ex.qty++; ex.subtotal = ex.qty * ex.unitPrice; }
-      else { cart.push({ menuId: sel.id, menuName: sel.name, qty: 1, unitPrice: Number(sel.price), subtotal: Number(sel.price) }); }
+      const selected = menus.find((m) => m.id === menuId);
+
+      if (!selected || selected.available === false) {
+        showToast("Menu tidak tersedia.", "error");
+        return;
+      }
+
+      const price = Number(selected.price) || 0;
+      const existing = cart.find((item) => item.menuId === menuId);
+
+      if (existing) {
+        existing.qty += 1;
+        existing.subtotal = existing.qty * existing.unitPrice;
+      } else {
+        cart.push({
+          menuId: selected.id,
+          menuName: selected.name,
+          qty: 1,
+          unitPrice: price,
+          subtotal: price
+        });
+      }
+
       renderCart();
-      showToast(`${sel.name} ditambahkan ke keranjang.`, "success");
+      showToast(`${selected.name} ditambahkan ke keranjang.`, "success");
     };
 
     window.increaseQty = function(menuId) {
-      const i = cart.find(x => x.menuId === menuId);
-      if (!i) return; i.qty++; i.subtotal = i.qty * i.unitPrice; renderCart();
+      const item = cart.find((x) => x.menuId === menuId);
+      if (!item) return;
+      item.qty += 1;
+      item.subtotal = item.qty * item.unitPrice;
+      renderCart();
     };
 
     window.decreaseQty = function(menuId) {
-      const i = cart.find(x => x.menuId === menuId);
-      if (!i) return;
-      i.qty--;
-      if (i.qty <= 0) cart = cart.filter(x => x.menuId !== menuId);
-      else i.subtotal = i.qty * i.unitPrice;
+      const item = cart.find((x) => x.menuId === menuId);
+      if (!item) return;
+
+      item.qty -= 1;
+      if (item.qty <= 0) {
+        cart = cart.filter((x) => x.menuId !== menuId);
+      } else {
+        item.subtotal = item.qty * item.unitPrice;
+      }
+
       renderCart();
     };
 
     window.removeCartItem = function(menuId) {
-      cart = cart.filter(x => x.menuId !== menuId); renderCart();
+      cart = cart.filter((x) => x.menuId !== menuId);
+      renderCart();
     };
 
     function renderCart() {
-      const total = cart.reduce((s, i) => s + i.subtotal, 0);
+      const total = cart.reduce((sum, item) => sum + item.subtotal, 0);
       cartTotal.textContent = formatRupiah(total);
+
       if (cart.length === 0) {
-        cartList.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><strong>Keranjang Kosong</strong><p>Pilih menu di atas dengan klik "+ Pesan".</p></div>`;
+        cartList.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">🛒</div>
+            <strong>Keranjang Kosong</strong>
+            <p>Pilih menu di atas dengan klik "+ Pesan".</p>
+          </div>`;
         return;
       }
-      cartList.innerHTML = cart.map(item => `
+
+      cartList.innerHTML = cart.map((item) => `
         <div class="cart-item">
           <div class="cart-item-info">
-            <strong>${item.menuName}</strong>
+            <strong>${safeText(item.menuName)}</strong>
             <span>${formatRupiah(item.unitPrice)} &times; ${item.qty} = ${formatRupiah(item.subtotal)}</span>
           </div>
           <div class="qty-control">
@@ -1472,62 +1407,106 @@
         </div>`).join("");
     }
 
-    /* ── Real-time menu listener ── */
     function listenMenusRealtime() {
       if (unsubscribeMenus) unsubscribeMenus();
-      menuGrid.innerHTML = Array(3).fill(`<div class="menu-skeleton"><div class="skeleton skel-img"></div><div class="skel-body"><div class="skeleton skel-line short"></div><div class="skeleton skel-line med" style="height:18px;margin-bottom:8px;"></div><div class="skeleton skel-line full"></div></div></div>`).join("");
+
+      menuGrid.innerHTML = Array(3).fill(`
+        <div class="menu-skeleton">
+          <div class="skeleton skel-img"></div>
+          <div class="skel-body">
+            <div class="skeleton skel-line short"></div>
+            <div class="skeleton skel-line med" style="height:18px;margin-bottom:8px;"></div>
+            <div class="skeleton skel-line full"></div>
+          </div>
+        </div>`).join("");
+
       unsubscribeMenus = onSnapshot(
-        collection(db, "restaurants", currentRestaurantId, "menus"),
-        snap => { menus = snap.docs.map(d => ({ id: d.id, ...d.data() })); renderMenus(); },
-        err => {
-          console.error("Error loading menus:", err);
-          menuGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">⚠️</div><strong>Gagal Memuat Menu</strong><p>Periksa koneksi atau Firestore Rules.<br><small style="opacity:.6;">${err.message}</small></p></div>`;
+        collection(db, "restaurants", RESTAURANT.id, "menus"),
+        (snapshot) => {
+          menus = snapshot.docs.map((d) => ({
+            id: d.id,
+            ...d.data()
+          }));
+          renderMenus();
+        },
+        (error) => {
+          console.error("Error loading menus:", error);
+          menuGrid.innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1;">
+              <div class="empty-icon">⚠️</div>
+              <strong>Gagal Memuat Menu</strong>
+              <p>Periksa koneksi, Firestore Rules, dan path <b>restaurants/warung_nusantara_jombang/menus</b>.<br><small style="opacity:.6;">${error.message}</small></p>
+            </div>`;
         }
       );
     }
 
-    /* ── Submit order ── */
     submitOrder.addEventListener("click", async () => {
-      const restaurant = getCurrentRestaurant();
-      const name  = customerName.value.trim();
+      const name = customerName.value.trim();
       const phone = customerPhone.value.trim();
       const table = Number(tableNumber.value);
-      const total = cart.reduce((s, i) => s + i.subtotal, 0);
+      const total = cart.reduce((sum, item) => sum + item.subtotal, 0);
 
-      if (!name || !phone || !table) { showToast("Lengkapi nama, nomor HP, dan nomor meja.", "error"); return; }
-      if (cart.length === 0) { showToast("Pilih minimal satu menu terlebih dahulu.", "error"); return; }
+      if (!name || !phone || !table) {
+        showToast("Lengkapi nama, nomor HP, dan nomor meja.", "error");
+        return;
+      }
+
+      if (cart.length === 0) {
+        showToast("Pilih minimal satu menu terlebih dahulu.", "error");
+        return;
+      }
 
       try {
         submitOrder.disabled = true;
         submitOrder.classList.add("loading");
         submitOrder.textContent = "";
 
-        const custId       = makeCustomerId(name, phone);
-        const customerRef  = doc(db, "customers", custId);
-        const restaurantRef = doc(db, "restaurants", restaurant.id);
+        const customerId = makeCustomerId(name, phone);
 
-        await setDoc(customerRef, { name, phone, loyaltyPoints: 0 }, { merge: true });
+        const customerRef = doc(db, "customers", customerId);
+        const restaurantRef = doc(db, "restaurants", RESTAURANT.id);
+
+        await setDoc(
+          customerRef,
+          {
+            name,
+            phone,
+            loyaltyPoints: 0
+          },
+          { merge: true }
+        );
 
         const orderRef = await addDoc(collection(db, "orders"), {
-          customerId: customerRef, restaurantId: restaurantRef,
-          tableNumber: table, status: "pending", totalPrice: total,
-          createdAt: serverTimestamp(), customerName: name,
-          customerPhone: phone, restaurantName: restaurant.name
+          customerId: customerRef,
+          restaurantId: restaurantRef,
+          tableNumber: table,
+          status: "pending",
+          totalPrice: total,
+          createdAt: serverTimestamp(),
+          customerName: name,
+          customerPhone: phone,
+          restaurantName: RESTAURANT.name
         });
 
-        await Promise.all(cart.map(item =>
+        await Promise.all(cart.map((item) =>
           addDoc(collection(db, "orders", orderRef.id, "orderItems"), {
-            menuId: item.menuId, menuName: item.menuName,
-            qty: item.qty, unitPrice: item.unitPrice, subtotal: item.subtotal
+            menuId: item.menuId,
+            menuName: item.menuName,
+            qty: item.qty,
+            unitPrice: item.unitPrice,
+            subtotal: item.subtotal
           })
         ));
 
         cart = [];
         renderCart();
-        customerName.value = customerPhone.value = tableNumber.value = "";
-        showToast(`Pesanan berhasil dikirim ke ${restaurant.name}! ✓`, "success");
-      } catch (err) {
-        console.error("Submit order error:", err);
+        customerName.value = "";
+        customerPhone.value = "";
+        tableNumber.value = "";
+        showToast("Pesanan berhasil dikirim.", "success");
+      } catch (error) {
+        console.error("Submit order error:", error);
         showToast("Gagal mengirim pesanan. Periksa koneksi dan Firestore Rules.", "error");
       } finally {
         submitOrder.disabled = false;
@@ -1536,50 +1515,101 @@
       }
     });
 
-    /* ── Render kitchen orders ── */
+    function isJombangOrder(order) {
+      if (!order.restaurantId && order.restaurantName) {
+        return String(order.restaurantName).toLowerCase().includes("jombang");
+      }
+
+      if (!order.restaurantId) return false;
+
+      if (typeof order.restaurantId === "string") {
+        return order.restaurantId === RESTAURANT.id ||
+               order.restaurantId === "resto1" ||
+               order.restaurantId === "warung_nusantara_jombang";
+      }
+
+      if (order.restaurantId.path) {
+        return order.restaurantId.path === `restaurants/${RESTAURANT.id}` ||
+               order.restaurantId.path === "restaurants/resto1" ||
+               order.restaurantId.path === "restaurants/warung_nusantara_jombang";
+      }
+
+      return false;
+    }
+
     async function renderKitchenOrders(snapshot) {
-      const path = `restaurants/${currentRestaurantId}`;
-      const orders = snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
-        .filter(o => o.restaurantId?.path === path);
+      const orders = snapshot.docs
+        .map((d) => ({ id: d.id, ...d.data() }))
+        .filter(isJombangOrder);
 
       orderCount.textContent = `${orders.length} pesanan`;
 
       if (orders.length === 0) {
-        kitchenOrders.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">📋</div><strong>Belum Ada Pesanan</strong><p>Pesanan baru untuk lokasi ini akan muncul di sini secara real-time.</p></div>`;
+        kitchenOrders.innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1;">
+            <div class="empty-icon">📋</div>
+            <strong>Belum Ada Pesanan</strong>
+            <p>Pesanan baru akan muncul di sini secara real-time.</p>
+          </div>`;
         return;
       }
 
-      const statusLabel = { pending: "Pending", cooking: "Proses Masak", ready: "Siap Disajikan", done: "Selesai" };
-      const pillClass   = { pending: "pill-pending", cooking: "pill-cooking", ready: "pill-ready", done: "pill-done" };
+      const statusLabel = {
+        pending: "Pending",
+        cooking: "Proses Masak",
+        ready: "Siap Disajikan",
+        done: "Selesai"
+      };
 
-      const cards = await Promise.all(orders.map(async order => {
+      const pillClass = {
+        pending: "pill-pending",
+        cooking: "pill-cooking",
+        ready: "pill-ready",
+        done: "pill-done"
+      };
+
+      const cards = await Promise.all(orders.map(async (order) => {
         let itemsHtml = "";
-        try {
-          const snap = await getDocs(collection(db, "orders", order.id, "orderItems"));
-          const items = snap.docs.map(d => d.data());
-          itemsHtml = items.length > 0
-            ? items.map(it => `<li><span class="item-name">${it.menuName} <span style="color:var(--muted);font-weight:500;">&times;${it.qty}</span></span><span class="item-price">${formatRupiah(it.subtotal)}</span></li>`).join("")
-            : `<li style="color:var(--muted);font-size:13px;">Tidak ada item tercatat.</li>`;
-        } catch (e) { console.warn("Failed to load items for order", order.id, e); }
 
-        const st = order.status || "pending";
+        try {
+          const itemSnapshot = await getDocs(collection(db, "orders", order.id, "orderItems"));
+          const items = itemSnapshot.docs.map((d) => d.data());
+
+          itemsHtml = items.length > 0
+            ? items.map((item) => {
+                const qty = Number(item.qty || 1);
+                const subtotal = Number(item.subtotal || (Number(item.unitPrice || 0) * qty));
+                return `
+                  <li>
+                    <span class="item-name">${safeText(item.menuName || item.name || item.menuId || "Menu")} <span style="color:var(--muted);font-weight:500;">&times;${qty}</span></span>
+                    <span class="item-price">${formatRupiah(subtotal)}</span>
+                  </li>`;
+              }).join("")
+            : `<li style="color:var(--muted);font-size:13px;">Tidak ada item tercatat.</li>`;
+        } catch (error) {
+          console.warn("Failed to load items for order", order.id, error);
+          itemsHtml = `<li style="color:var(--muted);font-size:13px;">Item tidak dapat dimuat.</li>`;
+        }
+
+        const status = order.status || "pending";
+
         return `
-          <article class="order-card ${st === "done" ? "order-done" : ""}">
+          <article class="order-card ${status === "done" ? "order-done" : ""}">
             <div class="order-head">
-              <span class="order-table">Meja ${order.tableNumber}</span>
-              <span class="status-pill ${pillClass[st] || "pill-pending"}">${statusLabel[st] || st}</span>
+              <span class="order-table">Meja ${order.tableNumber || "-"}</span>
+              <span class="status-pill ${pillClass[status] || "pill-pending"}">${statusLabel[status] || status}</span>
             </div>
             <div class="order-meta">
-              Lokasi: <strong>${order.restaurantName || "–"}</strong><br>
-              Pelanggan: <strong>${order.customerName || "–"}</strong><br>
+              Pelanggan: <strong>${safeText(order.customerName || order.customerId?.path || order.customerId || "–")}</strong><br>
+              Restoran: <strong>${safeText(order.restaurantName || RESTAURANT.name)}</strong><br>
               Total: <strong style="color:var(--gold);">${formatRupiah(order.totalPrice)}</strong>
             </div>
             <ul class="order-items-list">${itemsHtml}</ul>
             <div class="status-actions">
-              <button class="btn-status ${st==="pending"?"active-pending":""}" onclick="updateOrderStatus('${order.id}','pending')">Pending</button>
-              <button class="btn-status ${st==="cooking"?"active-cooking":""}" onclick="updateOrderStatus('${order.id}','cooking')">Masak</button>
-              <button class="btn-status ${st==="ready"?"active-ready":""}" onclick="updateOrderStatus('${order.id}','ready')">Siap Saji</button>
-              <button class="btn-status ${st==="done"?"active-done":""}" onclick="updateOrderStatus('${order.id}','done')">Selesai</button>
+              <button class="btn-status ${status==="pending"?"active-pending":""}" onclick="updateOrderStatus('${order.id}','pending')">Pending</button>
+              <button class="btn-status ${status==="cooking"?"active-cooking":""}" onclick="updateOrderStatus('${order.id}','cooking')">Masak</button>
+              <button class="btn-status ${status==="ready"?"active-ready":""}" onclick="updateOrderStatus('${order.id}','ready')">Siap Saji</button>
+              <button class="btn-status ${status==="done"?"active-done":""}" onclick="updateOrderStatus('${order.id}','done')">Selesai</button>
             </div>
           </article>`;
       }));
@@ -1587,45 +1617,45 @@
       kitchenOrders.innerHTML = cards.join("");
     }
 
-    /* ── Real-time orders listener ── */
     function listenOrdersRealtime() {
       if (unsubscribeOrders) unsubscribeOrders();
+
       unsubscribeOrders = onSnapshot(
         query(collection(db, "orders"), orderBy("createdAt", "desc")),
-        snap => renderKitchenOrders(snap),
-        err => {
-          console.error("Error loading orders:", err);
-          kitchenOrders.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-icon">⚠️</div><strong>Gagal Memuat Data Pesanan</strong><p>Periksa koneksi atau Firestore Rules.<br><small style="opacity:.6;">${err.message}</small></p></div>`;
+        (snapshot) => renderKitchenOrders(snapshot),
+        (error) => {
+          console.error("Error loading orders:", error);
+          kitchenOrders.innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1;">
+              <div class="empty-icon">⚠️</div>
+              <strong>Gagal Memuat Data Pesanan</strong>
+              <p>Periksa koneksi atau Firestore Rules.<br><small style="opacity:.6;">${error.message}</small></p>
+            </div>`;
         }
       );
     }
 
-    /* ── Update order status ── */
     window.updateOrderStatus = async function(orderId, status) {
       try {
         await updateDoc(doc(db, "orders", orderId), { status });
-        const labels = { pending: "Pending", cooking: "Proses Masak", ready: "Siap Disajikan", done: "Selesai" };
+        const labels = {
+          pending: "Pending",
+          cooking: "Proses Masak",
+          ready: "Siap Disajikan",
+          done: "Selesai"
+        };
         showToast(`Status diubah: ${labels[status] || status}`, status === "done" ? "success" : "default");
-      } catch (err) {
-        console.error("Update status error:", err);
+      } catch (error) {
+        console.error("Update status error:", error);
         showToast("Gagal mengubah status pesanan.", "error");
       }
     };
 
-    /* ── Location change ── */
-    restaurantSelect.addEventListener("change", () => {
-      currentRestaurantId = restaurantSelect.value;
-      cart = [];
-      renderCart();
-      updateRestaurantDisplay();
-      listenMenusRealtime();
-      listenOrdersRealtime();
-      showToast(`Pindah ke ${getCurrentRestaurant().name}.`);
-    });
+    featuredImage.addEventListener("error", () => {
+      featuredImage.src = "images/nasirawon.jpg";
+    }, { once: true });
 
-    /* ── Init ── */
-    await ensureRestaurantProfiles();
-    updateRestaurantDisplay();
+    await ensureRestaurantProfile();
     renderCart();
     listenMenusRealtime();
     listenOrdersRealtime();
