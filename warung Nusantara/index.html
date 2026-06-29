@@ -1088,7 +1088,7 @@
           <div class="panel order-form-panel">
             <div class="panel-title">
               <h3>Form Pesanan</h3>
-              <p>Isi nama, nomor HP, dan nomor meja. Pilih menu dengan klik "+ Pesan" di atas.</p>
+              <p>Isi nama, nomor HP, dan nomor meja. Pelanggan akan mendapat poin royalti otomatis setelah pesanan dikirim.</p>
             </div>
 
             <div class="form-group">
@@ -1154,7 +1154,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
       getFirestore, collection, doc, setDoc, addDoc,
-      getDocs, updateDoc, onSnapshot, query, orderBy, serverTimestamp
+      getDocs, updateDoc, onSnapshot, query, orderBy, serverTimestamp, increment
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -1213,6 +1213,12 @@
       const n = (name || "customer").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
       const p = (phone || "").replace(/[^0-9]/g, "").slice(-6);
       return `cust_${n}_${p || Date.now()}`;
+    }
+
+    function calculateLoyaltyPoints(totalPrice) {
+      // Aturan royalti: pelanggan mendapat 1 poin setiap pembelian Rp1.000.
+      // Contoh: total Rp8.000 = 8 poin.
+      return Math.floor((Number(totalPrice) || 0) / 1000);
     }
 
     function safeText(value) {
@@ -1466,13 +1472,15 @@
 
         const customerRef = doc(db, "customers", customerId);
         const restaurantRef = doc(db, "restaurants", RESTAURANT.id);
+        const earnedPoints = calculateLoyaltyPoints(total);
 
         await setDoc(
           customerRef,
           {
             name,
             phone,
-            loyaltyPoints: 0
+            loyaltyPoints: increment(earnedPoints),
+            lastOrderAt: serverTimestamp()
           },
           { merge: true }
         );
@@ -1483,6 +1491,7 @@
           tableNumber: table,
           status: "pending",
           totalPrice: total,
+          loyaltyPointsEarned: earnedPoints,
           createdAt: serverTimestamp(),
           customerName: name,
           customerPhone: phone,
@@ -1602,7 +1611,8 @@
             <div class="order-meta">
               Pelanggan: <strong>${safeText(order.customerName || order.customerId?.path || order.customerId || "–")}</strong><br>
               Restoran: <strong>${safeText(order.restaurantName || RESTAURANT.name)}</strong><br>
-              Total: <strong style="color:var(--gold);">${formatRupiah(order.totalPrice)}</strong>
+              Total: <strong style="color:var(--gold);">${formatRupiah(order.totalPrice)}</strong><br>
+              Poin Royalti: <strong>${Number(order.loyaltyPointsEarned || 0)} poin</strong>
             </div>
             <ul class="order-items-list">${itemsHtml}</ul>
             <div class="status-actions">
